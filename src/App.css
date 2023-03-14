@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e213f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.oval {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.oval-outer {
+  width: 300px;
+  height: 300px;
+  background-color: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
+  box-shadow: -50px -50px 100px #272c5a, 50px 50px 100px #121530;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.oval-inner {
+  width: 270px;
+  height: 270px;
+  background-color: #161932;
+  position: relative;
+}
+
+.one {
+  position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  gap: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.one p {
+  transition: color 0.5s;
   color: white;
+  font-size: 80px;
+  margin: 0;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+#gear {
+  fill: #d7e0ff;
+  font-size: 35px;
+  opacity: 50%;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+li {
+  color: #979797;
+  font-weight: bold;
+  flex: 1;
+  border-radius: 30px;
+  font-size: 12px;
+  text-align: center;
+  padding: 18px 0;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 24px;
+  color: #d7e0ff;
+  margin: 0;
+}
+
+.active {
+  position: relative;
+  z-index: 1;
+  color: #1e213f;
+  transition: color 0.5s;
+}
+
+button {
+  color: #d7e0ff;
+  font-size: 14px;
+  letter-spacing: 13.13px;
+  text-transform: uppercase;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  transform: translateX(calc(13.13px / 2));
 }
