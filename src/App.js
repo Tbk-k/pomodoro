@@ -2,21 +2,22 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "./App.css";
 import { GoGear } from "react-icons/go";
+import Settings from "./components/settings/Settings";
+import Clock from "./components/clock/Clock";
 
-const ProgressSvg = styled.svg`
-  width: 250px;
-  height: 250px;
-  transform: rotate(-90deg);
-`;
-
-const ProgressBar = styled.circle`
-  fill: none;
-  stroke: #f87070;
-  stroke-width: 8px;
-  stroke-dasharray: 760.3;
-  stroke-dashoffset: ${({ value }) => value};
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.3s linear;
+const StyledMain = styled.main`
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e213f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  font-family: ${({ font }) => font};
+  button {
+    font-family: ${({ font }) => font};
+  }
 `;
 
 const StyledMenu = styled.menu`
@@ -37,8 +38,8 @@ const StyledMenu = styled.menu`
     width: calc(33% - 3px);
     top: 6px;
     left: 6px;
-    transition: transform 0.5s;
-    background-color: #f87070;
+    transition: transform 0.5s, background-color 0.3s;
+    background-color: ${({ color }) => color};
     border-radius: 30px;
     transform: ${({ activeIndex }) =>
       `translateX(calc(${activeIndex * 100}%))`};
@@ -46,34 +47,19 @@ const StyledMenu = styled.menu`
 `;
 
 const App = () => {
-  const [time, setTime] = useState(1500);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleTimer = useCallback(() => {
-    if (time > 0) {
-      setTime((prev) => (prev -= 1));
-    } else {
-      setTime(0);
-    }
-  }, []);
-
-  const getProgressValue = () => {
-    return 760.3 - 760.3 * (time / 1500);
-  };
-
-  useEffect(() => {
-    const intervalID = setInterval(handleTimer, 1000);
-    return () => clearInterval(intervalID);
-  }, [handleTimer]);
+  const [color, setColor] = useState("#F87070");
+  const [font, setFont] = useState("'Kumbh Sans', sans-serif");
 
   return (
-    <div className="wrapper">
+    <StyledMain font={font}>
       <h1>pomodoro</h1>
       <StyledMenu
         onClick={(e) => {
           e.target.id && setActiveIndex(parseInt(e.target.id));
         }}
         activeIndex={activeIndex}
+        color={color}
       >
         <li id={0} className={activeIndex === 0 ? "active" : ""}>
           pomodoro
@@ -85,29 +71,15 @@ const App = () => {
           long break
         </li>
       </StyledMenu>
-      <div className="oval oval-outer">
-        <div className="oval oval-inner">
-          <ProgressSvg id="progres">
-            <ProgressBar
-              cx="50%"
-              cy="50%"
-              r="121"
-              value={getProgressValue()}
-            ></ProgressBar>
-          </ProgressSvg>
-          <div className="one">
-            <p>
-              {Math.floor(time / 60)
-                .toString()
-                .padStart(2, "0")}
-              :{(time % 60).toString().padStart(2, "0")}
-            </p>
-            <button>start</button>
-          </div>
-        </div>
-      </div>
+      <Clock color={color} />
+      <Settings
+        setColor={setColor}
+        color={color}
+        font={font}
+        setFont={setFont}
+      />
       <GoGear id="gear" />
-    </div>
+    </StyledMain>
   );
 };
 
