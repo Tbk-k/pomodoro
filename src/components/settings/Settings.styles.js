@@ -3,15 +3,22 @@ import styled from "styled-components";
 export const Backdrop = styled.div`
   padding: 46px 24px;
   width: 100vw;
+  height: 100vh;
   position: absolute;
   z-index: 10;
+  background-color: rgb(30, 33, 63, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Wrapper = styled.div`
   width: 100%;
+  max-width: 550px;
   border-radius: 30px;
   background-color: white;
   padding: 0 0 48px;
+  position: relative;
   hr {
     width: 90%;
     border: none;
@@ -29,39 +36,75 @@ const Picker = styled.div`
     text-align: center;
     margin: 15px 0;
     text-transform: uppercase;
-    letter-spacing: 4.23px;
-    font-size: 11px;
-    font-family: "Kumbh Sans", sans-serif;
   }
   div {
     display: flex;
     justify-content: center;
     gap: 16px;
   }
+  @media screen and (min-width: 768px) {
+    h3 {
+      text-align: start;
+    }
+  }
 `;
 
-export const ColorPicker = styled(Picker)``;
-export const FontPicker = styled(Picker)``;
-export const TimePicker = styled(Picker)`
-  padding: 0 23px;
-  div {
+export const ColorPicker = styled(Picker)`
+  @media screen and (min-width: 768px) {
+    padding: 19px 23px 1px;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    input {
-      width: 140px;
-      border-radius: 10px;
-      border: none;
-      background-color: #eff1fa;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 15px;
-      outline: none;
+  }
+`;
+export const FontPicker = styled(Picker)`
+  @media screen and (min-width: 768px) {
+    padding: 19px 23px 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+export const TimePicker = styled(Picker)`
+  padding: 18px 23px 0;
+  div {
+    display: flex;
+    flex-direction: column;
+    div {
+      justify-content: space-between;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 8px;
+      input {
+        width: 140px;
+        border-radius: 10px;
+        border: none;
+        background-color: #eff1fa;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 15px;
+        outline: none;
+      }
+      label {
+        font-size: 12px;
+        font-weight: bold;
+        color: #a5a6b2;
+      }
     }
-    label {
-      font-size: 12px;
-      font-weight: bold;
-      color: #a5a6b2;
+  }
+  @media screen and (min-width: 768px) {
+    div {
+      flex-direction: row;
+      justify-content: space-between;
+      div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        input {
+        }
+      }
     }
   }
 `;
@@ -121,17 +164,16 @@ export const ApplyButton = styled.button`
   padding: 13px 46px;
   position: absolute;
   border-radius: 30px;
-  border: none;
   background-color: #f87070;
   color: #ffffff;
-  cursor: pointer;
-  font-size: 14px;
   left: 50%;
-  bottom: 25px;
+  bottom: -25px;
   transform: translateX(-50%);
   transition: background-color 0.5s;
+  letter-spacing: normal;
   &:hover {
     background-color: #f98d8d;
+    color: #ffffff;
   }
 `;
 
