@@ -10,13 +10,14 @@ import { GlobalStyle } from "./assets/styles/global";
 const App = () => {
   const [showSetting, setSettingState] = useState(false);
   const { color, font } = useSelector((state) => state.style);
+  const [activeTimer, setActiveTimer] = useState("pomodoro");
 
   return (
     <StyledMain>
       <GlobalStyle font={font} color={color} />
       <h1>pomodoro</h1>
-      <Menu />
-      <Clock />
+      <Menu activeTimer={activeTimer} setActiveTimer={setActiveTimer} />
+      <Clock activeTimer={activeTimer} />
       {showSetting && <Settings setSettingState={setSettingState} />}
       <GoGear id="gear" onClick={() => setSettingState(true)} />
     </StyledMain>

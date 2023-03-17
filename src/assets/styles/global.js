@@ -28,6 +28,13 @@ export const GlobalStyle = createGlobalStyle`
 
     }
 
+    h4{
+        font:${({ font }) => `bold 8rem/1 ${font}`};
+        letter-spacing:-0.4rem;
+        margin:0;
+        color: #d7e0ff;
+    }
+
     button{
         font:${({ font }) => `bold 1.4rem/1 ${font}`};
         letter-spacing:1.3rem;
@@ -68,6 +75,11 @@ export const GlobalStyle = createGlobalStyle`
         h3{
             font:${({ font }) => `bold 1.3rem/1 ${font}`};
             letter-spacing:0.5rem;
+        }
+
+        h4{
+            font:${({ font }) => `bold 10rem/1 ${font}`};
+            letter-spacing:-0.5rem;
         }
 
         button{

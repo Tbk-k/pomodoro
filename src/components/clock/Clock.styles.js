@@ -32,14 +32,6 @@ export const InnerWrapper = styled(Oval)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    p {
-      transition: color 0.5s;
-      color: white;
-      font-size: 75px;
-      margin: 0;
-      width: 100%;
-      letter-spacing: -4px;
-    }
     button {
       text-transform: uppercase;
       background-color: transparent;

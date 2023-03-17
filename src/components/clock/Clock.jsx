@@ -7,18 +7,26 @@ import {
   ProgressBar,
 } from "./Clock.styles";
 
-const Clock = () => {
-  const [time, setTime] = useState(1500);
-  const [circleLength, setCircleLength] = useState(null);
-  let mainColor = useSelector((state) => state.style.color);
+const Clock = ({ activeTimer }) => {
+  const [seconds, setSeconds] = useState(1500);
+  const [circleLength, setCircleLength] = useState(1027);
+  const [isRuning, setIsRunning] = useState(false);
+  let mainColor = useSelector((state) => state.style.color) || "#F87070";
+  let duration = useSelector((state) => state.timer[activeTimer]) || 25;
+
+  useEffect(() => {
+    setSeconds(duration * 60);
+    setIsRunning(false);
+  }, [duration]);
 
   const handleTimer = useCallback(() => {
-    if (time > 0) {
-      setTime((prev) => (prev -= 1));
-    } else {
-      setTime(0);
+    if (!isRuning) return;
+    if (seconds > 0 && isRuning) {
+      setSeconds((prev) => (prev -= 1));
+    } else if (seconds === 0 && isRuning) {
+      setIsRunning(false);
     }
-  }, [time]);
+  }, [seconds, isRuning]);
 
   useEffect(() => {
     const intervalID = setInterval(handleTimer, 1000);
@@ -37,6 +45,15 @@ const Clock = () => {
     };
   }, [handleResize]);
 
+  const handleRunning = useCallback(() => {
+    setIsRunning((prev) => !prev);
+  }, []);
+
+  const handleRestart = useCallback(() => {
+    setSeconds(duration * 60);
+    setIsRunning(false);
+  }, [duration]);
+
   return (
     <Wrapper>
       <InnerWrapper>
@@ -45,18 +62,33 @@ const Clock = () => {
             cx="50%"
             cy="50%"
             r="48%"
-            value={circleLength - circleLength * (time / 1500)}
+            value={circleLength - circleLength * (seconds / (duration * 60))}
             color={mainColor}
+            ariaLabel={`${seconds / 60} minutes`}
           />
         </ProgressSvg>
         <div>
-          <p>
-            {Math.floor(time / 60)
+          <h4>
+            {Math.floor(seconds / 60)
               .toString()
               .padStart(2, "0")}
-            :{(time % 60).toString().padStart(2, "0")}
-          </p>
-          <button>start</button>
+            :{(seconds % 60).toString().padStart(2, "0")}
+          </h4>
+          {seconds > 0 && (
+            <button
+              onClick={handleRunning}
+              aria-label={isRuning ? "Pause" : "Start"}
+              role="switch"
+              aria-checked={isRuning}
+            >
+              {isRuning ? "stop" : "start"}
+            </button>
+          )}
+          {seconds === 0 && (
+            <button onClick={handleRestart} ariaLabel="Restart">
+              Restart
+            </button>
+          )}
         </div>
       </InnerWrapper>
     </Wrapper>

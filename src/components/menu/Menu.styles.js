@@ -21,8 +21,8 @@ export const StyledMenu = styled.menu`
     transition: transform 0.5s, background-color 0.3s;
     background-color: ${({ color }) => color};
     border-radius: 30px;
-    transform: ${({ activeIndex }) =>
-      `translateX(calc(${activeIndex * 100}%))`};
+    transform: ${({ activeItemIndex }) =>
+      `translateX(calc(${activeItemIndex * 100}%))`};
   }
   li {
     flex: 1;
